@@ -1,21 +1,29 @@
-MIT License
+Licencia de Código Cerrado
+Copyright (c) 2024 Desarrollo Ágil Digital SAS
 
-Copyright (c) 2024 Jhon Bernal
+NIT: 901724982
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+1. Concesión de Licencia
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Desarrollo Ágil Digital SAS concede al usuario una licencia no exclusiva, intransferible y limitada para utilizar el software [Nombre del Software] exclusivamente para fines corporativos internos de la empresa que adquiere la licencia.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2. Restricciones
+
+El usuario no puede copiar, modificar, adaptar, distribuir, vender, sublicenciar o de cualquier otra forma transferir el software o cualquier parte del mismo.
+El usuario no tiene permiso para descompilar, realizar ingeniería inversa, desensamblar ni intentar derivar el código fuente del software.
+El software no debe ser utilizado para fines comerciales fuera del ámbito de la empresa licenciada.
+3. Propiedad
+
+Todos los derechos, títulos e intereses en y sobre el software, incluidos todos los derechos de propiedad intelectual, son propiedad exclusiva de Desarrollo Ágil Digital SAS.
+
+4. Limitación de Responsabilidad
+
+El software se proporciona "tal cual" sin garantía de ningún tipo, expresa o implícita, incluyendo pero no limitado a las garantías de comerciabilidad, idoneidad para un propósito particular y no infracción. Desarrollo Ágil Digital SAS no será responsable de ningún daño derivado del uso del software, ya sea en una acción de contrato, agravio u otra teoría legal.
+
+5. Terminación
+
+La licencia se terminará automáticamente si el usuario incumple cualquier término de este acuerdo. A la terminación, el usuario debe cesar todo uso del software y destruir todas las copias del mismo.
+
+6. Ley Aplicable
+
+Este acuerdo se regirá e interpretará de acuerdo con las leyes de Colombianas.
