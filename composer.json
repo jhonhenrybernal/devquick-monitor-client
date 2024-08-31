@@ -4,7 +4,6 @@
     "type": "library",
     "require": {
         "php": "^7.3|^8.0",
-        "monolog/monolog": "^2.0 || ^3.0",
         "firebase/php-jwt": "^6.0",
         "ratchet/pawl": "0.4.1", 
         "react/event-loop": "^1.0"

@@ -1,22 +1,20 @@
 <?php
 namespace DevQuick\MonitorClient;
 
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use Firebase\JWT\JWT;
 use Ratchet\Client\WebSocket;
 use React\EventLoop\Factory;
+use GuzzleHttp\Client;
 
 class MonitorClient
 {
-    private $logger;
     private $serverUrl;
     private $jwtSecret;
     private $accessKey;
-
     private $http;
     private $rateLimit = 10; // Máximo 10 logs por minuto
     private $logCount = 0;
+    private $webSocketConnection;
 
     public function __construct()
     {
@@ -24,29 +22,29 @@ class MonitorClient
         $this->serverUrl = 'https://centralized-log-server.com/logs';
         $this->jwtSecret = 'your_jwt_secret_key';
         $this->accessKey = 'your_access_key';
+        
+        // Configuración del cliente HTTP para el rate limiting
         $this->http = new Client();
-        
-        // Configuración del logger
-        $this->logger = new Logger('monitor');
-        $this->logger->pushHandler(new StreamHandler(storage_path('logs/monitor.log'), Logger::DEBUG));
-        
+
         // Implementar WebSocket
         $loop = Factory::create();
         $client = new \Ratchet\Client\Factory($loop);
         $client('ws://centralized-log-server.com:8080', [], ['Authorization' => 'Bearer ' . $this->generateJWT()])
             ->then(function(WebSocket $conn) {
-                $conn->on('message', function($msg) use ($conn) {
+                $this->webSocketConnection = $conn;
+                $conn->on('message', function($msg) {
                     // Handle incoming messages from the server
                     echo "Received: {$msg}\n";
                 });
-
-                $this->logger->pushHandler(new WebSocketHandler($conn));
             }, function (\Exception $e) use ($loop) {
                 echo "Could not connect: {$e->getMessage()}\n";
                 $loop->stop();
             });
 
         $loop->run();
+
+        // Leer logs existentes y enviar
+        $this->processExistingLogs();
     }
 
     private function generateJWT()
@@ -68,21 +66,55 @@ class MonitorClient
             $this->logCount++;
             $this->sendLog($level, $message);
         } else {
-            $this->logger->warning('Rate limit exceeded');
+            $this->http->post($this->serverUrl, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->generateJWT(),
+                    'Content-Type' => 'application/json'
+                ],
+                'json' => [
+                    'level' => 'warning',
+                    'message' => 'Rate limit exceeded'
+                ]
+            ]);
         }
     }
 
     private function sendLog($level, $message)
     {
-        $this->http->post($this->serverUrl, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->generateJWT(),
-                'Content-Type' => 'application/json'
-            ],
-            'json' => [
+        if ($this->webSocketConnection) {
+            $this->webSocketConnection->send(json_encode([
                 'level' => $level,
                 'message' => $message
-            ]
-        ]);
+            ]));
+        } else {
+            $this->http->post($this->serverUrl, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->generateJWT(),
+                    'Content-Type' => 'application/json'
+                ],
+                'json' => [
+                    'level' => $level,
+                    'message' => $message
+                ]
+            ]);
+        }
+    }
+
+    private function processExistingLogs()
+    {
+        $logFiles = glob(storage_path('logs/*.log'));
+        foreach ($logFiles as $file) {
+            $logs = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            foreach ($logs as $log) {
+                // Supongamos que el formato del log es: [fecha] nivel mensaje
+                $parts = explode(' ', $log, 3);
+                if (count($parts) >= 3) {
+                    $level = $parts[1];
+                    $message = $parts[2];
+                    $this->log($level, $message);
+                }
+            }
+        }
     }
 }
+

@@ -26,12 +26,7 @@ class ComposerStaticInita5f27c996d3b3d2a9e766c9dabd44192
         ),
         'P' => 
         array (
-            'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
-        ),
-        'M' => 
-        array (
-            'Monolog\\' => 8,
         ),
         'G' => 
         array (
@@ -84,18 +79,10 @@ class ComposerStaticInita5f27c996d3b3d2a9e766c9dabd44192
         array (
             0 => __DIR__ . '/..' . '/ratchet/pawl/src',
         ),
-        'Psr\\Log\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/log/src',
-        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-factory/src',
             1 => __DIR__ . '/..' . '/psr/http-message/src',
-        ),
-        'Monolog\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
