@@ -9,15 +9,16 @@ Para instalar `MonitorClient`, utiliza Composer:
 ```bash
 composer require devquick/monitor-client
 
-    ```
-## Configura el Archivo .env
+ ```
+
+## Configura el Archivo env
 
 ```bash
 MONITOR_CLIENT_JWT_SECRET=your_jwt_secret_key
 MONITOR_CLIENT_ACCESS_KEY=your_access_key
 MONITOR_CLIENT_RATE_LIMIT=10
 
-    ```
+ ```
 
 ## Imagen
 
