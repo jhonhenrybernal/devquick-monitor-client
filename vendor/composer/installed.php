@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'devquick/monitor-client',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'fd4d20174355a796f418320292fa17ec088e3dee',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'devquick/monitor-client' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'fd4d20174355a796f418320292fa17ec088e3dee',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
