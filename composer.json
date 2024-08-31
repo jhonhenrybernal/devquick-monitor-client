@@ -14,5 +14,5 @@
             "DevQuick\\MonitorClient\\": "src/"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "dev"
 }
