@@ -1,0 +1,18 @@
+{
+    "name": "devquick/monitor-client",
+    "description": "DevQuick Monitor Client es un paquete de PHP que permite la centralización de logs para aplicaciones basadas en Laravel Lumen.",
+    "type": "library",
+    "require": {
+        "php": "^7.3|^8.0",
+        "monolog/monolog": "^2.0",
+        "cboden/ratchet": "^0.4.0",
+        "firebase/php-jwt": "^5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "DevQuick\\MonitorClient\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "license": "MIT"
+}
