@@ -4,55 +4,19 @@
 
 ## Instalación
 
-Para instalar **MonitorClient**, sigue estos pasos:
+Para instalar `MonitorClient`, utiliza Composer:
 
-1. **Clona el repositorio**:
+```bash
+composer require devquick/monitor-client
 
-    ```bash
-    git clone https://github.com/tuusuario/devquick-monitor-client.git
-    cd devquick-monitor-client
     ```
+## Configura el Archivo .env
 
-2. **Instala las dependencias**:
+```bash
+MONITOR_CLIENT_JWT_SECRET=your_jwt_secret_key
+MONITOR_CLIENT_ACCESS_KEY=your_access_key
+MONITOR_CLIENT_RATE_LIMIT=10
 
-    Asegúrate de tener [Composer](https://getcomposer.org/) instalado en tu sistema. Luego, ejecuta:
-
-    ```bash
-    composer install
-    ```
-
-3. **Configura el paquete**:
-
-    Crea un archivo de configuración en el directorio raíz del proyecto llamado `.env` y agrega las siguientes variables:
-
-    ```env
-    SERVER_URL=https://centralized-log-server.com/logs
-    JWT_SECRET=your_jwt_secret_key
-    ACCESS_KEY=your_access_key
-    ```
-
-## Uso
-
-Para utilizar el cliente de monitoreo, sigue estos pasos:
-
-1. **Configura el Cliente**:
-
-    En tu aplicación, incluye y configura el cliente **MonitorClient**:
-
-    ```php
-    require 'vendor/autoload.php';
-
-    use DevQuick\MonitorClient\MonitorClient;
-
-    $monitorClient = new MonitorClient();
-    ```
-
-2. **Captura Logs**:
-
-    Utiliza el método `log` para capturar y enviar logs:
-
-    ```php
-    $monitorClient->log('info', 'This is an informational message.');
     ```
 
 ## Imagen
