@@ -2,8 +2,7 @@
 namespace DevQuick\MonitorClient;
 
 use Firebase\JWT\JWT;
-use Ratchet\Client\WebSocket;
-use React\EventLoop\Factory;
+use WebSocket\Client as WebSocketClient;
 use GuzzleHttp\Client;
 
 class MonitorClient
@@ -13,33 +12,23 @@ class MonitorClient
     private $http;
     private $rateLimit = 10; // Máximo 10 logs por minuto
     private $logCount = 0;
-    private $webSocketConnection;
+    private $webSocketClient;
+    private $logDirectory;
 
     public function __construct()
     {
         // Configuración básica
         $this->serverUrl = 'http://localhost/logs';
-        $this->jwtSecret = env('ACCESS_KEY_DQMONITOR');
+        $this->jwtSecret = getenv('ACCESS_KEY_DQMONITOR'); // Obtener la clave del entorno
+        $this->logDirectory = __DIR__ . '/../../storage/logs'; // Ajusta la ruta a tu directorio de logs
         
         // Configuración del cliente HTTP para el rate limiting
         $this->http = new Client();
 
         // Implementar WebSocket
-        $loop = Factory::create();
-        $client = new \Ratchet\Client\Factory($loop);
-        $client('ws://localhost:8080', [], ['Authorization' => 'Bearer ' . $this->generateJWT()])
-            ->then(function(WebSocket $conn) {
-                $this->webSocketConnection = $conn;
-                $conn->on('message', function($msg) {
-                    // Handle incoming messages from the server
-                    echo "Received: {$msg}\n";
-                });
-            }, function (\Exception $e) use ($loop) {
-                echo "Could not connect: {$e->getMessage()}\n";
-                $loop->stop();
-            });
-
-        $loop->run();
+        $this->webSocketClient = new WebSocketClient('ws://localhost:8081', [
+            'Authorization' => 'Bearer ' . $this->generateJWT()
+        ]);
 
         // Leer logs existentes y enviar
         $this->processExistingLogs();
@@ -78,8 +67,8 @@ class MonitorClient
 
     private function sendLog($level, $message)
     {
-        if ($this->webSocketConnection) {
-            $this->webSocketConnection->send(json_encode([
+        if ($this->webSocketClient) {
+            $this->webSocketClient->send(json_encode([
                 'level' => $level,
                 'message' => $message
             ]));
@@ -99,7 +88,7 @@ class MonitorClient
 
     private function processExistingLogs()
     {
-        $logFiles = glob(storage_path('logs/*.log'));
+        $logFiles = glob($this->logDirectory . '/*.log');
         foreach ($logFiles as $file) {
             $logs = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
             foreach ($logs as $log) {
@@ -114,4 +103,3 @@ class MonitorClient
         }
     }
 }
-

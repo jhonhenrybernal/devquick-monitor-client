@@ -5,9 +5,8 @@
     "require": {
         "php": "^7.3|^8.0",
         "firebase/php-jwt": "^6.0",
-        "ratchet/pawl": "0.4.1", 
-        "react/event-loop": "^1.0",
-        "guzzlehttp/guzzle": "^7.9"
+        "guzzlehttp/guzzle": "^7.9",
+        "textalk/websocket": "^1.5"
     },
     "autoload": {
         "psr-4": {
